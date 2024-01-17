@@ -19,10 +19,10 @@ data "tfe_organization" "org" {
 
 data "tfe_workspace" "main-workspace" {
   name = "terraform-cloud"
-  organization = data.tfe_organization.org
+  organization = data.tfe_organization.org.name
 }
 
 data "tfe_project" "project" {
   name = "multi-tenant"
-  organization = data.tfe_organization.org
+  organization = data.tfe_organization.org.name
 }
