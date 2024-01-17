@@ -13,9 +13,12 @@ terraform {
   }
 }
 
+data "tfe_organization" "org" {
+  name = "siddharth9611"
+}
 
 # ------------------ project-------------
 resource "tfe_project" "project" {
     name = "multi-tenant"
-    organization = "siddharth9611"
+    organization = data.tfe_organization.org
 }
