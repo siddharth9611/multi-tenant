@@ -1,0 +1,3 @@
+variable "organization" {}
+
+variable "name" {}
