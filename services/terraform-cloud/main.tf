@@ -20,5 +20,5 @@ data "tfe_organization" "org" {
 # ------------------ project-------------
 resource "tfe_project" "project" {
     name = "multi-tenant"
-    organization = data.tfe_organization.org
+    organization = data.tfe_organization.org.name
 }
