@@ -1,13 +1,10 @@
 terraform {
-    cloud {
-      organization = "siddharth9611"
-      workspaces {
-        name = "terraform-cloud"
-      }
+  backend "remote" {
+    organization = "siddharth9611"
+    workspaces {
+      name = "terraform-cloud"
     }
-
-
-
+  }
   required_providers {
     tfe = {
       source = "hashicorp/tfe"
