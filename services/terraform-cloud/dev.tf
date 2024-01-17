@@ -15,7 +15,7 @@ module "dev" {
     identifier = "siddharth9611/multi-tenant"
     ingress_submodules = false
     global_remote_state = true
-    oauth_token_id = data.tfe_oauth_client.client.oauth_token_id
+    oauth_token_id = "ot-GmR4RK6jTNaaMzjm"
     queue_all_runs = true
     file_triggers_enabled = true
     variable_set_id = tfe_variable_set.dev.id
