@@ -17,8 +17,12 @@ data "tfe_organization" "org" {
   name = "siddharth9611"
 }
 
-# ------------------ project-------------
-resource "tfe_project" "project" {
-    name = "multi-tenant"
-    organization = data.tfe_organization.org.name
+data "tfe_workspace" "main-workspace" {
+  name = "terraform-cloud"
+  organization = data.tfe_organization.org
+}
+
+data "tfe_project" "project" {
+  name = "multi-tenant"
+  organization = data.tfe_organization.org
 }
