@@ -1,7 +1,7 @@
-resource "tfe_variable_set" "dev" {
-    name = "dev"
-    organization = "siddharth9611"
-}
+# resource "tfe_variable_set" "dev" {
+#     name = "dev"
+#     organization = "siddharth9611"
+# }
 
 
 # #----------------------workspace-----------------------
