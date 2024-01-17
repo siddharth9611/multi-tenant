@@ -38,7 +38,4 @@ resource "tfe_variable" "variable" {
     workspace_id = tfe_workspace.workspace.id
 }
 
-data "tfe_oauth_client" "client" {
-    organization = data.tfe_organization.name
-    service_provider = "github"
-}
+
