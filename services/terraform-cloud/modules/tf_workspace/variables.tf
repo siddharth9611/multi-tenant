@@ -52,7 +52,6 @@ variable "variable_set_id" {
     default = null
 }
 
-variable "remote_state_consumer_ids" {}
 
 variable "tag_names" {}
 

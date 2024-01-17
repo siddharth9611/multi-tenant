@@ -7,7 +7,7 @@ resource "tfe_workspace" "workspace" {
     global_remote_state = var.global_remote_state ### Whether the workspace allows all workspaces in the organization to access its state data during runs. If false, then only specifically approved workspaces can access its state.
     project_id = var.project_id
     queue_all_runs = var.queue_all_runs
-    remote_state_consumer_ids = var.remote_state_consumer_ids
+    remote_state_consumer_ids = try(each.value.remote_state_consumer_ids, [])
     speculative_enabled = true
     structured_run_output_enabled = true
     tag_names = var.tag_names
@@ -36,4 +36,9 @@ resource "tfe_variable" "variable" {
     value = var.AWS_REGION
     category = "env"
     workspace_id = tfe_workspace.workspace.id
+}
+
+data "tfe_oauth_client" "client" {
+    organization = data.tfe_organization.name
+    service_provider = "github"
 }
