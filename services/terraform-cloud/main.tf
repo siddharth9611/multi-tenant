@@ -18,5 +18,5 @@ terraform {
 module "project" {
     source = "./modules/project"
     organization = "siddharth9611"
-    name = "multi-tenanttt"
+    name = "multi-tenant"
 }
