@@ -22,5 +22,4 @@ module "dev" {
     workspace = "dev-in"
     tag_names = ["dev"]
     trigger_patterns = ["multi-tenant/environments/dev/clusters/in/*"]
-    AWS_REGION = "ap-south-1"
 }
