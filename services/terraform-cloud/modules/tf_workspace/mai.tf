@@ -14,7 +14,7 @@ resource "tfe_workspace" "workspace" {
     structured_run_output_enabled = true
     # tag_names = [each.value.tag_names, var.tag_names]
     tag_names = each.value.tag_names
-    trigger_patterns = [each.value.trigger_patterns, var.trigger_patterns]
+    trigger_patterns = try(each.value.trigger_patterns, var.trigger_patterns)
     vcs_repo {
         identifier = var.identifier
         branch = var.branch
