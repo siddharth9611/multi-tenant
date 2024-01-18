@@ -25,8 +25,9 @@ resource "tfe_workspace" "workspace" {
 }
 
 resource "tfe_workspace_settings" "settings" {
+    for_each = var.workspace
     workspace_id = tfe_workspace.workspace[each.value.name].id
-    execution_mode = "remote"
+    execution_mode = try(each.value.name, "remote")
 }
 
 resource "tfe_workspace_variable_set" "variable_set" {
@@ -38,7 +39,7 @@ resource "tfe_workspace_variable_set" "variable_set" {
 resource "tfe_variable" "variable" {
     for_each = var.workspace
     key = "AWS_REGION"
-    value = [each.value.AWS_REGION, var.AWS_REGION]
+    value = try(each.value.AWS_REGION, var.AWS_REGION)
     category = "env"
     workspace_id = tfe_workspace.workspace[each.value.name].id
 }
