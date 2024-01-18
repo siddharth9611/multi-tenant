@@ -52,7 +52,9 @@ variable "variable_set_id" {
     default = null
 }
 
-
+variable "working_directory" {
+    default = null
+}
 variable "tag_names" {}
 
 

@@ -22,7 +22,7 @@ data "tfe_workspace" "main-workspace" {
   organization = data.tfe_organization.org.name
 }
 
-# data "tfe_oauth_client" "client" {
-#     organization = data.tfe_organization.org.name
-#     service_provider = "github"
-# }
+data "tfe_oauth_client" "client" {
+    organization = data.tfe_organization.org.name
+    service_provider = "github"
+}

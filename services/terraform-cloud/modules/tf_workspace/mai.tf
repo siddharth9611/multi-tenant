@@ -2,6 +2,7 @@ resource "tfe_workspace" "workspace" {
     name = var.workspace
     organization = var.organisation
     terraform_version = var.tf_version
+    working_directory = var.working_directory
     allow_destroy_plan = var.allow_destroy_plan
     file_triggers_enabled = var.file_triggers_enabled  ### If enabled, the working directory and trigger prefixes describe a set of files/paths which must contain changes for a VCS push to trigger a run. If disabled, any push will trigger a run.
     global_remote_state = var.global_remote_state ### Whether the workspace allows all workspaces in the organization to access its state data during runs. If false, then only specifically approved workspaces can access its state.
