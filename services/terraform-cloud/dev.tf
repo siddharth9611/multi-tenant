@@ -11,7 +11,7 @@ module "dev" {
     allow_destroy_plan = true
     organisation = data.tfe_organization.org.name
     tf_version = "1.6.6"
-    project_id = "prj-btaBdgk3hYr83YvW"
+    project_id = "prj-SzRmkXQjUJb54uye"
     identifier = "siddharth9611/multi-tenant"
     ingress_submodules = false
     global_remote_state = true
