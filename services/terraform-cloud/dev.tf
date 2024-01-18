@@ -34,14 +34,14 @@ module "dev" {
         }
 
         dev-in-common = {
-            name = "dev-in"
+            name = "dev-in-common"
             tag_names = ["dev"]
             working_directory = "multi-tenant/environments/dev/clusters/in/common"
             trigger_patterns = ["/multi-tenant/environments/dev/clusters/in/common/*"]
         }
 
-        dev-in-eks-cluster = {
-            name = "dev-in"
+        dev-in-eks-platform = {
+            name = "dev-in-eks-platform"
             tag_names = ["dev"]
             working_directory = "multi-tenant/environments/dev/clusters/in/eks-platform"
             trigger_patterns = ["/multi-tenant/environments/dev/clusters/in/eks-platform/*"]
