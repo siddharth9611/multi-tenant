@@ -25,13 +25,14 @@ resource "tfe_workspace" "workspace" {
 }
 
 resource "tfe_workspace_settings" "settings" {
-    workspace_id = tfe_workspace.workspace.id
+    workspace_id = tfe_workspace.workspace[each.value.name].id
     execution_mode = "remote"
 }
 
 resource "tfe_workspace_variable_set" "variable_set" {
-    variable_set_id = var.variable_set_id
-    workspace_id = tfe_workspace.workspace.id
+    for_each = var.workspace
+    variable_set_id = try(each.value.tfe_variable_set_id, var.variable_set_id)
+    workspace_id = tfe_workspace.workspace[each.value.name].id
 }
 
 resource "tfe_variable" "variable" {
@@ -39,7 +40,7 @@ resource "tfe_variable" "variable" {
     key = "AWS_REGION"
     value = [each.value.AWS_REGION, var.AWS_REGION]
     category = "env"
-    workspace_id = tfe_workspace.workspace.id
+    workspace_id = tfe_workspace.workspace[each.value.name].id
 }
 
 
