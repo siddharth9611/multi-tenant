@@ -27,7 +27,7 @@ resource "tfe_workspace" "workspace" {
 resource "tfe_workspace_settings" "settings" {
     for_each = var.workspace
     workspace_id = tfe_workspace.workspace[each.value.name].id
-    execution_mode = try(each.value.name, "remote")
+    execution_mode = "remote"
 }
 
 resource "tfe_workspace_variable_set" "variable_set" {
