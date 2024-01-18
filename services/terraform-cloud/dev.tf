@@ -10,7 +10,7 @@ module "dev" {
     source = "./modules/tf_workspace"
     allow_destroy_plan = true
     organisation = data.tfe_organization.org.name
-    tf_version = "0.51.1"
+    tf_version = "1.6.6"
     project_id = "prj-btaBdgk3hYr83YvW"
     identifier = "siddharth9611/multi-tenant"
     ingress_submodules = false
