@@ -17,10 +17,10 @@ data "tfe_organization" "org" {
   name = "siddharth9611"
 }
 
-data "tfe_workspace" "main-workspace" {
-  name = "terraform-cloud"
-  organization = data.tfe_organization.org.name
-}
+# data "tfe_workspace" "main-workspace" {
+#   name = "terraform-cloud"
+#   organization = data.tfe_organization.org.name
+# }
 
 data "tfe_oauth_client" "client" {
     organization = data.tfe_organization.org.name

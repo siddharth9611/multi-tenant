@@ -1,18 +1,20 @@
 resource "tfe_workspace" "workspace" {
-    name = var.workspace
-    organization = var.organisation
+    for_each = var.workspace
+    name = each.value.name
+    organization = [each.value.organisation, var.organisation]
     terraform_version = var.tf_version
-    working_directory = var.working_directory
+    working_directory = [each.value.working_directory, var.working_directory]
     allow_destroy_plan = var.allow_destroy_plan
     file_triggers_enabled = var.file_triggers_enabled  ### If enabled, the working directory and trigger prefixes describe a set of files/paths which must contain changes for a VCS push to trigger a run. If disabled, any push will trigger a run.
     global_remote_state = var.global_remote_state ### Whether the workspace allows all workspaces in the organization to access its state data during runs. If false, then only specifically approved workspaces can access its state.
-    project_id = var.project_id
+    project_id = [each.value.project_id, var.project_id]
     queue_all_runs = var.queue_all_runs
     # remote_state_consumer_ids = try(each.value.remote_state_consumer_ids, [])
     speculative_enabled = true
     structured_run_output_enabled = true
-    tag_names = var.tag_names
-    trigger_patterns = var.trigger_patterns
+    # tag_names = [each.value.tag_names, var.tag_names]
+    tag_names = each.value.tag_names
+    trigger_patterns = [each.value.trigger_patterns, var.trigger_patterns]
     vcs_repo {
         identifier = var.identifier
         branch = var.branch
@@ -33,8 +35,9 @@ resource "tfe_workspace_variable_set" "variable_set" {
 }
 
 resource "tfe_variable" "variable" {
+    for_each = var.workspace
     key = "AWS_REGION"
-    value = var.AWS_REGION
+    value = [each.value.AWS_REGION, var.AWS_REGION]
     category = "env"
     workspace_id = tfe_workspace.workspace.id
 }
