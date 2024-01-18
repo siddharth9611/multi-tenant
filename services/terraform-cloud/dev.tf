@@ -1,7 +1,7 @@
-# resource "tfe_variable_set" "dev" {
-#     name = "dev"
-#     organization = "siddharth9611"
-# }
+resource "tfe_variable_set" "dev" {
+    name = "dev"
+    organization = "siddharth9611"
+}
 
 
 # #----------------------workspace-----------------------
@@ -18,7 +18,7 @@ module "dev" {
     oauth_token_id = "ot-GmR4RK6jTNaaMzjm"
     queue_all_runs = true
     file_triggers_enabled = true
-    # variable_set_id = tfe_variable_set.dev.id
+    variable_set_id = tfe_variable_set.dev.id
     workspace = "dev-in"
     tag_names = ["dev"]
     trigger_patterns = ["multi-tenant/environments/dev/clusters/in/*"]

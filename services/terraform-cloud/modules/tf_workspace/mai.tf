@@ -26,10 +26,10 @@ resource "tfe_workspace_settings" "settings" {
     execution_mode = "remote"
 }
 
-# resource "tfe_workspace_variable_set" "variable_set" {
-#     # variable_set_id = var.variable_set_id
-#     workspace_id = tfe_workspace.workspace.id
-# }
+resource "tfe_workspace_variable_set" "variable_set" {
+    variable_set_id = var.variable_set_id
+    workspace_id = tfe_workspace.workspace.id
+}
 
 resource "tfe_variable" "variable" {
     key = "AWS_REGION"

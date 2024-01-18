@@ -48,9 +48,9 @@ variable "AWS_REGION" {
     default = "ap-south-1"
 }
 
-# variable "variable_set_id" {
-#     default = null
-# }
+variable "variable_set_id" {
+    default = null
+}
 
 
 variable "tag_names" {}
