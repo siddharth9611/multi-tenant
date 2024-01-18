@@ -21,6 +21,6 @@ module "dev" {
     variable_set_id = tfe_variable_set.dev.id
     workspace = "dev-in"
     tag_names = ["dev"]
-    working_directory = ["multi-tenant/environments/dev/clusters/in"]
+    working_directory = "multi-tenant/environments/dev/clusters/in"
     trigger_patterns = ["multi-tenant/environments/dev/clusters/in/*"]
 }
