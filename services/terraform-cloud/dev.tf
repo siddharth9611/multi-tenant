@@ -48,7 +48,7 @@ module "dev" {
         }
 
         dev-in-eks-platform = {
-            name = "dev"
+            name = "dev-all"
             tag_names = ["dev"]
             working_directory = "multi-tenant/environments/dev"
             trigger_patterns = ["/multi-tenant/environments/dev/*"]
