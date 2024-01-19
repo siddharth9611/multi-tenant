@@ -46,6 +46,13 @@ module "dev" {
             working_directory = "multi-tenant/environments/dev/clusters/in/eks-platform"
             trigger_patterns = ["/multi-tenant/environments/dev/clusters/in/eks-platform/*"]
         }
+
+        dev-in-eks-platform = {
+            name = "dev"
+            tag_names = ["dev"]
+            working_directory = "multi-tenant/environments/dev"
+            trigger_patterns = ["/multi-tenant/environments/dev/*"]
+        }
     }
 
 
