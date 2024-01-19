@@ -16,7 +16,7 @@ terraform {
 provider "aws" {
     region = "ap-south-1"
 }
-
+############
 module "main_vpc" {
   source = "../../../../modules/vpc"
   name = "EKS_test"
