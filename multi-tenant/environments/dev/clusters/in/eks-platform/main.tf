@@ -24,5 +24,5 @@ data "aws_iam_policy" "eks_policy" {
 
 resource "aws_iam_role" "eks-role" {
     name = "eks-role"
-    assume_role_policy = data.aws_iam_policy.eks_policy.name
+    assume_role_policy = data.aws_iam_policy.eks_policy.name.jsondecode
 }
