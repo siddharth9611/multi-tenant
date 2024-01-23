@@ -20,9 +20,10 @@ provider "aws" {
 
 data "aws_iam_policy" "eks_policy" {
     name = "AmazonEKSClusterPolicy"
+    
 }
 
 resource "aws_iam_role" "eks-role" {
     name = "eks-role"
-    assume_role_policy = jsondecode(data.aws_iam_policy.eks_policy.name)
+    assume_role_policy = data.aws_iam_policy.eks_policy.arn
 }
