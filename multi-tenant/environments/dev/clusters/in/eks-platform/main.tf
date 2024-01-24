@@ -30,3 +30,8 @@ module "eks_role" {
     policy_arn = data.aws_iam_policy.eks_policy.arn
 }
 
+resource "aws_ebs_volume" "test" {
+  availability_zone = "ap-south-1a"
+  
+}
+
