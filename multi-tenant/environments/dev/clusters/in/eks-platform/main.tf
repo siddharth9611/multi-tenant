@@ -16,14 +16,17 @@ provider "aws" {
     region = "ap-south-1"
 }
 
-##########________________________IAM_ROLE________________#############
-
+#######______________policy____________########
 data "aws_iam_policy" "eks_policy" {
     name = "AmazonEKSClusterPolicy"
     
 }
 
-resource "aws_iam_role" "eks-role" {
-    name = "eks-role"
-    assume_role_policy = data.aws_iam_policy.eks_policy.arn
+##########________________________IAM_ROLE________________#############
+
+module "eks_role" {
+    source = "../../../../../modules/iam"
+    name = "eks_role"
+    policy_arn = data.aws_iam_policy.eks_policy.arn
 }
+

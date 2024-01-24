@@ -1,10 +1,13 @@
-data "aws_iam_policy" "eks_policy" {
-    name = "AmazonEKSClusterPolicy"
-    
-}
+variable "name" {}
+variable "policy_arn" {}
+
+
+
+
+
 
 resource "aws_iam_role" "eks-role" {
-    name = "eks-role"
+    name = var.name
     assume_role_policy ={
         "Version": "2012-10-17",
         "Statement": [
@@ -21,6 +24,6 @@ resource "aws_iam_role" "eks-role" {
 }
 
 resource "aws_iam_policy_attachment" "eks_policy_attach" {
-    name = "eks policy"
-    policy_arn = data.aws_iam_policy.eks_policy.arn
+    name = var.name
+    policy_arn = var.policy_arn
 }
