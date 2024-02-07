@@ -62,7 +62,7 @@ resource "aws_vpc" "vpc"{
 resource "aws_subnet" "pub_subnet" {
     vpc_id = aws_vpc.vpc.id
     cidr_block = var.pub_subnet_cidr
-    availability_zone = var.avail_zone
+    availability_zone = var.avail_zone[0]
     tags = {
       Name = "${local.vpc_name}_pub_subnet"
     }
@@ -71,7 +71,7 @@ resource "aws_subnet" "pub_subnet" {
 resource "aws_subnet" "prv_subnet" {
     vpc_id = aws_vpc.vpc.id
     cidr_block = var.prv_subnet_cidr
-    availability_zone = var.avail_zone
+    availability_zone = var.avail_zone[1]
     tags = {
       Name = "${local.vpc_name}_prv_subnet"
     }

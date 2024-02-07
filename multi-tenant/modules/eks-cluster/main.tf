@@ -1,7 +1,7 @@
 #########--------------Variables------------##############
 
 variable "cluster_name" {}
-variable "cluster_subnet_id" {}
+variable "cluster_subnet_ids" {}
 
 
 #######-----------------EKS-policy---------------########
@@ -46,7 +46,7 @@ resource "aws_eks_cluster" "eks-cluster" {
   role_arn = aws_iam_role.eks-role.arn
 
   vpc_config {
-    subnet_ids = [var.cluster_subnet_id]
+    subnet_ids = [var.cluster_subnet_ids]
   }
 
   # depends_on = [

@@ -27,7 +27,7 @@ module "main_vpc" {
   name = "${local.name}-vpc"
   environment = "dev"
   vpc_cidr = "10.0.0.0/16"
-  avail_zone = "ap-south-1a"
+  avail_zone = ["ap-south-1a","ap-south-1b"]
   pub_subnet_cidr = "10.0.101.0/24"
   prv_subnet_cidr = "10.0.1.0/24"
 }
