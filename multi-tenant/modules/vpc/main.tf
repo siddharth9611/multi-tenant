@@ -148,6 +148,10 @@ resource "aws_security_group" "sg" {
 
 ###########___________________outputs___________________#######
 
-# output "subnet" {
-#     value = aws_subnet.subnet
-# }
+output "pub_subnet" {
+    value = aws_subnet.pub_subnet.id
+}
+
+output "prv_subnet" {
+    value = aws_subnet.prv_subnet.id
+}

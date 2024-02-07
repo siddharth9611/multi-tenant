@@ -36,8 +36,9 @@ module "main_vpc" {
 #######--------------outputs-------------##############
 
 output "vpc" {
-  value = module.main_vpc.subnet.id
+  value = module.main_vpc
 }
+
 
 output "name" {
   value = local.name
