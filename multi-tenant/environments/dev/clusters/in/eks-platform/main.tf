@@ -45,6 +45,7 @@ data "terraform_remote_state" "dev-in" {
  module "eks-in-cluster" {
   source = "../../../../../modules/eks-cluster"
   cluster_name = data.terraform_remote_state.dev-in.outputs.name
-  cluster_subnet_id = data.terraform_remote_state.dev-in.vpc.subnet_id
+  cluster_subnet_id = data.terraform_remote_state.dev-in.vpc
+  
   
  }

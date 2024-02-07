@@ -33,7 +33,7 @@ resource "aws_iam_role" "eks-role" {
 
 resource "aws_iam_policy_attachment" "eks_policy_attach" {
     name = "project-eks-policy"
-    policy_arn = aws_iam_policy.eks_policy.arn
+    policy_arn = data.aws_iam_policy.eks_policy.arn
     roles = [aws_iam_role.eks-role.name]
 
 }
