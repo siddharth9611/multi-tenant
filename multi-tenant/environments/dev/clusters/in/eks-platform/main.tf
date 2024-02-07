@@ -1,31 +1,50 @@
 terraform {
-    cloud {
-      organization = "uniphore"
-      workspaces {
-        name = "dev"
-      }
+  backend "remote" {
+    organization = "siddharth9611"
+    workspaces {
+      name = "dev-in-eks-platform"
     }
-    required_providers {
-        aws = {
-            source = "hashicorp/aws"
-        }
+  }
+
+  required_providers {
+    aws = {
+        source = "hashicorp/aws"
     }
+  }
 }
 
 provider "aws" {
     region = "ap-south-1"
 }
 
-#######______________policy____________########
-data "aws_iam_policy" "eks_policy" {
-    name = "AmazonEKSClusterPolicy"
-    
+##########--------data sources----------########
+
+data "terraform_remote_state" "dev" {
+  backend = "remote"
+  config = {
+    organization = "siddharth9611"
+    workspaces = {
+      name = "dev"
+    }
+  }
 }
 
-##########________________________IAM_ROLE________________#############
-
-module "eks_role" {
-    source = "../../../../../modules/iam"
-    name = "eks_role"
-    policy_arn = data.aws_iam_policy.eks_policy.arn
+data "terraform_remote_state" "dev-in" {
+  backend = "remote"
+  config = {
+    organization = "siddharth9611"
+    workspaces = {
+      name = "dev-in"
+    }
+  }
 }
+
+
+
+###############-----------------eks-cluster--------------#############
+ module "eks-in-cluster" {
+  source = "../../../../../modules/eks-cluster"
+  cluster_name = data.terraform_remote_state.dev-in.outputs.name
+  cluster_subnet_id = data.terraform_remote_state.dev-in.vpc.subnet_id
+  
+ }
