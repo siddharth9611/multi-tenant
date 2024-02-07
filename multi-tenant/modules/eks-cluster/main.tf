@@ -49,9 +49,9 @@ resource "aws_eks_cluster" "eks-cluster" {
     subnet_ids = [var.cluster_subnet_id]
   }
 
-  depends_on = [
-    aws_iam_role_policy_attachment.eks_policy_attach,
-  ]
+  # depends_on = [
+  #   aws_iam_role_policy_attachment.eks_policy_attach
+  # ]
 }
 
 ############--------------outputs--------------#############
