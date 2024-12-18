@@ -22,6 +22,8 @@ variable "private_subnets" {
 variable "public_subnets" {
   default = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
 }
+variable "enable_nat_gateway" {
+}
 
 locals {
   vpc_tags = {
@@ -49,7 +51,7 @@ module "vpc" {
   azs                            = var.availability_zones
   private_subnets                = var.private_subnets
   public_subnets                 = var.public_subnets
-  enable_nat_gateway             = true
+  enable_nat_gateway             = var.enable_nat_gateway
   single_nat_gateway             = true
   one_nat_gateway_per_az         = false
   enable_flow_log                = false
