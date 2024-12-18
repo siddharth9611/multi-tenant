@@ -1,5 +1,5 @@
 terraform {
-  backend cloud {
+  backend "cloud" {
     organization = "siddharth9611"
     workspaces {
       name = "dev-in"
@@ -8,13 +8,13 @@ terraform {
 
   required_providers {
     aws = {
-        source = "hashicorp/aws"
+      source = "hashicorp/aws"
     }
   }
 }
 
 provider "aws" {
-    region = "ap-south-1"
+  region = "ap-south-1"
 }
 
 locals {
@@ -23,8 +23,10 @@ locals {
 #######--------------------vpc-----------------################
 
 module "main_vpc" {
-  source = "../../../../modules/vpc_V2"
-  
+  source             = "../../../../modules/vpc_V2"
+  name               = "devops-practise"
+  availability_zones = ["ap-south-1a", "ap-south-1c", "ap-south-1b"]
+
 }
 
 
