@@ -51,7 +51,7 @@ module "vpc" {
   public_subnets            = var.public_subnets
   enable_nat_gateway        = true
   single_nat_gateway        = true
-  enable_dns_hostnames      = true
+  enable_dns_hostnames      = false
   enable_flow_log           = false
   tags                = local.vpc_tags
   public_subnet_tags  = local.public_subnet_tags
