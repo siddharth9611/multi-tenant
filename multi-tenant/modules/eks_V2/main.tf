@@ -1,25 +1,45 @@
-variable "cluster_endpoint" {}
-variable "subnet_ids" {}
-variable "cluster_certificate_authority_data" {}
 variable "cluster_name" {}
-variable "instance_type" {}
-variable "cluster_security_group_id" {}
-variable "max_size" {}
-variable "min_size" {}
+variable "cluster_version" {
+  default = "1.31"
+}
+variable "subnet_ids" {}
 variable "vpc_id" {}
+variable "environment" {}
+variable "min_size" {
+  default = 1
+}
+variable "max_size" {
+  default = 1
+}
+variable "desired_size" {
+  default = 1
+}
+variable "instance_types" {
+  default = "t2.small"
+}
 
 
 
-module "eks-workers" {
-  source  = "cloudposse/eks-workers/aws"
-  version = "1.3.0"
-  vpc_id = var.vpc_id
-  min_size = var.min_size
+module "eks" {
+  source  = "terraform-aws-modules/eks/aws"
+  version = "20.31.4"
+  cluster_name = var.cluster_name 
+  cluster_version = var.cluster_version
+
   subnet_ids = var.subnet_ids
-  max_size = var.max_size
-  cluster_security_group_id = var.cluster_security_group_id
-  instance_type = var.instance_type
-  cluster_name = var.cluster_name
-  cluster_certificate_authority_data = var.cluster_certificate_authority_data
-  cluster_endpoint = var.cluster_endpoint
+  vpc_id = var.vpc_id
+
+  tags = {
+    environment = var.environment
+  }
+
+  eks_managed_node_groups = {
+    dev = {
+      min_size     = var.min_size
+      max_size     = var.max_size
+      desired_size = var.desired_size
+
+      instance_types = [var.instance_types]
+    }
+  }
 }
