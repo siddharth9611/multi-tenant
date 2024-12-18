@@ -42,7 +42,7 @@ locals {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~>3.0"
+  version = "5.16.0"
 
   name                           = var.name
   cidr                           = var.cidr
@@ -51,10 +51,8 @@ module "vpc" {
   public_subnets                 = var.public_subnets
   enable_nat_gateway             = true
   single_nat_gateway             = true
-  enable_dns_hostnames           = false
   one_nat_gateway_per_az         = false
   enable_flow_log                = false
-  default_vpc_enable_classiclink = false
   tags                           = local.vpc_tags
   public_subnet_tags             = local.public_subnet_tags
   private_subnet_tags            = local.private_subnet_tags
