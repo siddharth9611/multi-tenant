@@ -1,5 +1,5 @@
 terraform {
-  backend cloud {
+  backend "cloud" {
     organization = "siddharth9611"
     workspaces {
       name = "dev-in"
@@ -8,13 +8,13 @@ terraform {
 
   required_providers {
     aws = {
-        source = "hashicorp/aws"
+      source = "hashicorp/aws"
     }
   }
 }
 
 provider "aws" {
-    region = "ap-south-1"
+  region = "ap-south-1"
 }
 
 locals {
@@ -23,15 +23,11 @@ locals {
 #######--------------------vpc-----------------################
 
 module "main_vpc" {
-  source = "../../../../modules/vpc"
-  name = "${local.name}-vpc"
-  environment = "dev"
-  vpc_cidr = "10.0.0.0/16"
-  avail_zone = ["ap-south-1a","ap-south-1b"]
-  pub_subnet_cidr = "10.0.101.0/24"
-  prv_subnet_cidr = "10.0.1.0/24"
+  source             = "../../../../modules/vpc_V2"
+  name               = "devops-practise"
+  availability_zones = ["ap-south-1a", "ap-south-1c", "ap-south-1b"]
+  enable_nat_gateway = false
 }
-
 
 #######--------------outputs-------------##############
 
