@@ -24,6 +24,7 @@ locals {
 
 module "main_vpc" {
   source = "../../../../modules/vpc_V2"
+  
 }
 
 
