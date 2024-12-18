@@ -46,8 +46,8 @@ data "terraform_remote_state" "dev-in" {
   source = "../../../../../modules/eks_V2"
   cluster_name = "eks-in-cluster"
   cluster_version = "1.31"
-  vpc_id = data.terraform_remote_state.dev-in.outputs.vpc.vpc_id
+  vpc_id = data.terraform_remote_state.dev-in.outputs.vpc.vpc.vpc_id
   environment = "dev"
-  subnet_ids = data.terraform_remote_state.dev-in.outputs.vpc.private_subnets
+  subnet_ids = data.terraform_remote_state.dev-in.outputs.vpc.vpc.private_subnets
 
 }
