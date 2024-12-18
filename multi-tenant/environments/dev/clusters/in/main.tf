@@ -23,7 +23,7 @@ locals {
 #######--------------------vpc-----------------################
 
 module "main_vpc" {
-  source = "../../../../modules/vpc_v2"
+  source = "../../../../modules/vpc_V2"
 }
 
 
