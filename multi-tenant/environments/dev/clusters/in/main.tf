@@ -28,7 +28,6 @@ module "main_vpc" {
   availability_zones = ["ap-south-1a", "ap-south-1c", "ap-south-1b"]
 }
 
-
 #######--------------outputs-------------##############
 
 output "vpc" {
