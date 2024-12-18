@@ -1,5 +1,66 @@
+#========================================================================
+#
+#    Module      : uniphore_vpc
+#
+#========================================================================
+
+#----------------------------- Variables -----------------------------
+
+variable "region" {
+  default     = "ap-south-1"
+  description = "AWS region"
+}
+variable "name" {}
+variable "availability_zones" {}
+variable "cidr" {
+  default = "10.0.0.0/16"
+}
+variable "private_subnets" {
+  type = list(string)
+  default =  ["10.0.32.0/19", "10.0.64.0/19", "10.0.96.0/19"]
+}
+variable "public_subnets" {
+  default = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
+}
+
+locals {
+  vpc_tags = {
+  }
+  public_subnet_tags = merge(
+    {
+      "kubernetes.io/role/elb" = "1"
+    }
+  )
+  private_subnet_tags = merge(
+    {
+      "kubernetes.io/role/internal-elb" = "1"
+    }
+  )
+}
+
+#----------------------------- Networking -----------------------------
+
 module "vpc" {
-  source  = "cloudposse/vpc/aws"
-  version = "2.2.0"
-  
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "~>3.0"
+
+  name                      = var.name
+  cidr                      = var.cidr
+  azs                       = var.availability_zones
+  private_subnets           = var.private_subnets
+  public_subnets            = var.public_subnets
+  enable_nat_gateway        = true
+  single_nat_gateway        = true
+  enable_dns_hostnames      = true
+  enable_flow_log           = false
+  tags                = local.vpc_tags
+  public_subnet_tags  = local.public_subnet_tags
+  private_subnet_tags = local.private_subnet_tags
+
+}
+
+#----------------------------- Outputs -----------------------------
+
+output "vpc" {
+  value = module.vpc
 }
