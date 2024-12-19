@@ -26,7 +26,7 @@ module "main_vpc" {
   source             = "../../../../modules/vpc_V2"
   name               = "devops-practise"
   availability_zones = ["ap-south-1a", "ap-south-1c", "ap-south-1b"]
-  enable_nat_gateway = false
+  enable_nat_gateway = true
 }
 
 #######--------------outputs-------------##############
