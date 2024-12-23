@@ -25,7 +25,7 @@ module "eks" {
   version = "20.31.4"
   cluster_name = var.cluster_name 
   cluster_version = var.cluster_version
-  cluster_endpoint_private_access = false
+  enable_cluster_creator_admin_permissions = true
   cluster_endpoint_public_access = true
 
   subnet_ids = var.subnet_ids
