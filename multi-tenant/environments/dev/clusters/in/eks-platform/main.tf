@@ -61,7 +61,4 @@ data "terraform_remote_state" "dev-in" {
   vpc_id = data.terraform_remote_state.dev-in.outputs.vpc.vpc.vpc_id
   environment = "dev"
   subnet_ids = data.terraform_remote_state.dev-in.outputs.vpc.vpc.private_subnets
-  providers = {
-    kubernetes = kubernetes.EKS_k8s-provider
-  }
 }
