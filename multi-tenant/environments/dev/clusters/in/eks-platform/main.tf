@@ -52,7 +52,7 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "20.31.4"
   cluster_name = "eks-in-cluster"
-  cluster_version = "1.31"
+  cluster_version = "1.30"
   cluster_endpoint_public_access = true
 
   subnet_ids = data.terraform_remote_state.dev-in.outputs.vpc.vpc.private_subnets
