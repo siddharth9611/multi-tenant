@@ -18,10 +18,10 @@ terraform {
 }
 
 #########--------cluster-auth-data-----------##########
-# data "aws_eks_cluster" "cluster" {
-#   depends_on = [ module.eks-in-cluster ]
-#   name = module.eks-in-cluster.cluster_id
-# }
+data "aws_eks_cluster" "cluster" {
+  depends_on = [ module.eks-in-cluster ]
+  name = module.eks-in-cluster.cluster_id
+}
 
 data "aws_eks_cluster_auth" "cluster_auth" {
   depends_on = [ module.eks-in-cluster ]
@@ -61,7 +61,4 @@ data "terraform_remote_state" "dev-in" {
   vpc_id = data.terraform_remote_state.dev-in.outputs.vpc.vpc.vpc_id
   environment = "dev"
   subnet_ids = data.terraform_remote_state.dev-in.outputs.vpc.vpc.private_subnets
-  providers = {
-    kubernetes = kubernetes.EKS_k8s-provider
-  }
 }
