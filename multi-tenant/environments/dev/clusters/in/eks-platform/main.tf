@@ -20,12 +20,12 @@ terraform {
 #########--------cluster-auth-data-----------##########
 data "aws_eks_cluster" "cluster" {
   depends_on = [ module.eks-in-cluster ]
-  name = module.eks-in-cluster.cluster_id
+  name = module.eks-in-cluster.eks.cluster_id
 }
 
 data "aws_eks_cluster_auth" "cluster_auth" {
   depends_on = [ module.eks-in-cluster ]
-  name = module.eks-in-cluster.cluster_id
+  name = module.eks-in-cluster.eks.cluster_id
 }
 
 provider "kubernetes" {
