@@ -1,6 +1,6 @@
 variable "cluster_name" {}
 variable "cluster_version" {
-  default = "1.31"
+  default = "1.30"
 }
 variable "subnet_ids" {}
 variable "vpc_id" {}
@@ -25,6 +25,8 @@ module "eks" {
   version = "20.31.4"
   cluster_name = var.cluster_name 
   cluster_version = var.cluster_version
+  cluster_endpoint_private_access = false
+  cluster_endpoint_public_access = true
 
   subnet_ids = var.subnet_ids
   vpc_id = var.vpc_id

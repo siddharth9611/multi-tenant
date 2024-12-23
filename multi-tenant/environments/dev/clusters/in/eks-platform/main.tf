@@ -19,14 +19,15 @@ terraform {
 
 #########--------cluster-auth-data-----------##########
 data "aws_eks_cluster" "cluster" {
-  name = module.eks.cluster_name
+  name = module.eks-in-cluster.cluster_id
 }
 
 data "aws_eks_cluster_auth" "cluster_auth" {
-  name = module.eks.cluster_name
+  name = module.eks-in-cluster.cluster_id
 }
 
 provider "kubernetes" {
+  alias = "sid-test-kube-provider"
   host = data.aws_eks_cluster.cluster.endpoint
   token = data.aws_eks_cluster_auth.cluster_auth.token
   cluster_ca_certificate = base64decode(data.aws_eks_cluster_auth.cluster_auth.certificate_authority.0.data)
@@ -48,38 +49,17 @@ data "terraform_remote_state" "dev-in" {
   }
 }
 
-module "eks" {
-  source  = "terraform-aws-modules/eks/aws"
-  version = "20.31.4"
+
+
+###############-----------------eks-cluster--------------#############
+ module "eks-in-cluster" {
+  source = "../../../../../modules/eks_V2"
   cluster_name = "eks-in-cluster"
   cluster_version = "1.30"
-  cluster_endpoint_public_access = true
-
+  vpc_id = data.terraform_remote_state.dev-in.outputs.vpc.vpc.vpc_id
+  environment = "dev"
   subnet_ids = data.terraform_remote_state.dev-in.outputs.vpc.vpc.private_subnets
-  vpc_id =  data.terraform_remote_state.dev-in.outputs.vpc.vpc.vpc_id
-
-  tags = {
-    environment = "dev"
-  }
-
-  eks_managed_node_groups = {
-    dev = {
-      min_size     = 1
-      max_size     = 1
-      desired_size = 1
-
-      instance_types = ["t2.small"]
-    }
+  providers = {
+    kubernetes = kubernetes.sid-test-kube-provider
   }
 }
-
-
-# ###############-----------------eks-cluster--------------#############
-#  module "eks-in-cluster" {
-#   source = "../../../../../modules/eks_V2"
-#   cluster_name = "eks-in-cluster"
-#   cluster_version = "1.31"
-#   vpc_id = data.terraform_remote_state.dev-in.outputs.vpc.vpc.vpc_id
-#   environment = "dev"
-#   subnet_ids = data.terraform_remote_state.dev-in.outputs.vpc.vpc.private_subnets
-# }
