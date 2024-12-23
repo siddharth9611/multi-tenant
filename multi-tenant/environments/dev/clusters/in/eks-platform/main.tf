@@ -29,7 +29,7 @@ data "aws_eks_cluster_auth" "cluster_auth" {
 }
 
 provider "kubernetes" {
-  alias = "kubernetes-provider"
+  alias = "EKS_k8s-provider"
   host = data.aws_eks_cluster.cluster.endpoint
   token = data.aws_eks_cluster_auth.cluster_auth.token
   cluster_ca_certificate = base64decode(data.aws_eks_cluster_auth.cluster_auth.certificate_authority.0.data)
@@ -62,6 +62,6 @@ data "terraform_remote_state" "dev-in" {
   environment = "dev"
   subnet_ids = data.terraform_remote_state.dev-in.outputs.vpc.vpc.private_subnets
   providers = {
-    kubernetes = kubernetes.kubernetes-provider
+    kubernetes = kubernetes.EKS_k8s-provider
   }
 }
