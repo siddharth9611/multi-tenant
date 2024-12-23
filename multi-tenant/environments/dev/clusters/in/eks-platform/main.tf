@@ -10,7 +10,29 @@ terraform {
     aws = {
         source = "hashicorp/aws"
     }
+    kubernetes = {
+      source = "hashicorp/kubernetes"
+      version = "~> 2.35.1"
+    }
   }
+}
+
+#########--------cluster-auth-data-----------##########
+data "aws_eks_cluster" "cluster" {
+  depends_on = [ module.eks-in-cluster ]
+  name = module.eks-in-cluster.cluster_id
+}
+
+data "aws_eks_cluster_auth" "cluster_auth" {
+  depends_on = [ module.eks-in-cluster ]
+  name = module.eks-in-cluster.cluster_id
+}
+
+provider "kubernetes" {
+  alias = "kubernetes-provider"
+  host = data.aws_eks_cluster.cluster.endpoint
+  token = data.aws_eks_cluster_auth.cluster_auth.token
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster_auth.cluster_auth.certificate_authority.0.data)
 }
 
 provider "aws" {
@@ -18,16 +40,6 @@ provider "aws" {
 }
 
 ##########--------data sources----------########
-
-# data "terraform_remote_state" "dev" {
-#   backend = "remote"
-#   config = {
-#     organization = "siddharth9611"
-#     workspaces = {
-#       name = "dev"
-#     }
-#   }
-# }
 
 data "terraform_remote_state" "dev-in" {
   backend = "remote"
@@ -49,5 +61,7 @@ data "terraform_remote_state" "dev-in" {
   vpc_id = data.terraform_remote_state.dev-in.outputs.vpc.vpc.vpc_id
   environment = "dev"
   subnet_ids = data.terraform_remote_state.dev-in.outputs.vpc.vpc.private_subnets
-
+  providers = {
+    kubernetes = kubernetes.kubernetes-provider
+  }
 }
