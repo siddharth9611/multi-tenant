@@ -12,21 +12,21 @@ terraform {
     }
 }
 
-# provider "aws" {
-#     region = "ap-south-1"
-# }
+provider "aws" {
+    region = "ap-south-1"
+}
 
 # #######-----------------policy---------------########
 
-# data "aws_iam_policy" "eks_policy" {
-#     name = "AmazonEKSClusterPolicy"
-# }
+data "aws_iam_policy" "eks_policy" {
+    name = "AmazonEKSClusterPolicy"
+}
 
 # ##########---------------------IAM_ROLE-------------------#############
 
-# module "eks_role" {
-#     source = "../../modules/iam"
-#     name = "eks_role"
-#     policy_arn = data.aws_iam_policy.eks_policy.arn
-# }
+module "eks_role" {
+    source = "../../modules/iam"
+    name = "eks_role"
+    policy_arn = data.aws_iam_policy.eks_policy.arn
+}
 
