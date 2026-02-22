@@ -39,3 +39,4 @@ output "vpc" {
 output "name" {
   value = local.name
 }
+
