@@ -12,15 +12,15 @@ terraform {
     }
 }
 
-# provider "aws" {
-#     region = "ap-south-1"
-# }
+provider "aws" {
+    region = "ap-south-1"
+}
 
 # #######-----------------policy---------------########
 
-# data "aws_iam_policy" "eks_policy" {
-#     name = "AmazonEKSClusterPolicy"
-# }
+data "aws_iam_policy" "eks_policy" {
+    name = "AmazonEKSClusterPolicy"
+}
 
 # ##########---------------------IAM_ROLE-------------------#############
 
